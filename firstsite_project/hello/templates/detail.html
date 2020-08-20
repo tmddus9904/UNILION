@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> My Diary </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+            {
+            font-family: 'Playfair Display',
+                serif;
+
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,800&display=swap');
+
+            {
+            font-family: 'Playfair Display', serif;
+        }
+
+
+        @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+        .nanummyeongjo * {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+
+
+        .bg-color {
+            background-color: #d4c8b0 !important;
+        }
+
+        body {
+            background-color: #d4c8b0 !important;
+
+
+        }
+
+        p {
+            font-family: 'Nanum Myeongjo', serif;
+            color: #655e50;
+            font-size: 17px;
+            text-align: center;
+
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #423d32;
+            font-size: 1.8rem !important;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Playfair Display';
+            font-size: x-large;
+            color: #423d32;
+            font-style: italic;
+            text-align: center;
+        }
+
+
+
+        .date {
+            text-align: center;
+            font-size: 13px;
+            font-style: italic;
+            color: #655e50;
+        }
+
+        .mm {
+
+            margin: auto 0 !important;
+            color: #423d32;
+            text-align: center !important;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: #423d32 !important;
+        }
+    </style>
+</head>
+
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>{{onepost.title}}</h1>
+<br>
+<p>{{onepost.body}}</p>
+<p class="date">{{onepost.created_at}}</p>
+<br>
+<br>
+<div class="mm">
+    <a href="{%url 'home'%}"> Home &nbsp;</a>
+    <a href="{%url 'postedit' onepost.id %}"> Edit &nbsp;</a>
+    <a href="{%url 'postdelete' onepost.id %}"> Delete &nbsp;</a>
+</div>
+
+
+<form action="{%url 'commentcreate' onepost.id %}" method="POST">
+
+    {%csrf_token%} <button type=" submit">댓글쓰기</button>
+    <input type="text" name="comment_content" id="comment_content"> <br><br>
+
+</form>
+{% for c in comments %}
+<p>{{c.title}}</p>
+<p>{{c.created_at}}</p>
+<a href="{% url 'commentdelete' onepost.id c.id %}">삭제</a>
+{%endfor%}
+{%endblock%}

@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> My Diary </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+            {
+            font-family: 'Playfair Display',
+                serif;
+
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,800&display=swap');
+
+            {
+            font-family: 'Playfair Display', serif;
+        }
+
+
+        @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+        .nanummyeongjo * {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+
+
+        .bg-color {
+            background-color: #d4c8b0 !important;
+        }
+
+        body {
+            background-color: #d4c8b0 !important;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-family: 'Nanum Myeongjo', serif;
+
+        }
+
+        button {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        textarea {
+            width: 500px;
+            height: 300px;
+        }
+
+        input {
+            width: 500px;
+            height: 30px;
+        }
+
+        .a {
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+</head>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="a">
+    <form action="{% url 'postupdate' onepost.id %}" method="POST">
+        {% csrf_token %}
+        <br><br>
+        <label for="title">Tilte</label> <br>
+        <input type="text" name="title" id="title" value="{{onepost.title}}">
+        <br><br>
+
+        <label for="body">Contents</label> <br>
+        <textarea name="body" id="body">
+{{onepost.body}}
+    </textarea> <br><br>
+
+        <button type="submit">Edit</button>
+
+    </form>
+</div>
+
+
+
+{% endblock %}

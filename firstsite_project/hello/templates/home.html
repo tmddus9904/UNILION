@@ -1,0 +1,112 @@
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title> My Diary </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+            {
+            font-family: 'Playfair Display',
+                serif;
+
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,800&display=swap');
+
+            {
+            font-family: 'Playfair Display', serif;
+        }
+
+
+        @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+        .nanummyeongjo * {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        body {
+            background-color: #d4c8b0 !important;
+        }
+
+        p {
+            font-family: 'Nanum Myeongjo', serif;
+            color: #655e50;
+            font-size: 17px;
+            text-align: center;
+
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #423d32;
+            font-size: 35px !important;
+            text-align: center
+        }
+
+        h2 {
+            font-family: 'Playfair Display';
+            font-size: 25px !important;
+            color: #423d32;
+            text-align: center;
+            font-style: italic;
+        }
+
+        img {
+            width: 400px;
+            display: block;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .date {
+            font-size: 17px;
+            font-style: italic;
+            color: #655e50;
+        }
+
+        a {
+            text-decoration: none;
+            color: #423d32 !important;
+        }
+    </style>
+</head>
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    <img src="https://raw.githubusercontent.com/tmddus9904/tmddus9904.github.io/master/r6.png" />
+    <h1>July 2020 </h1>
+    <br><br>
+    {% for oneblog in page_posts %}
+    <h2><a href="{% url 'detail' oneblog.id %}"> {{oneblog.title}}</a></h2>
+    <p class="date"> {{oneblog.created_at}}</p>
+    <p>_</p>
+    {% endfor %}
+
+
+    <ul>
+        {% if page_posts.has_previous%}
+        <li><a href="?page={{page_posts.previous_page_number}}">이전</a></li>
+        {%endif%}
+        {%for i in page_posts.paginator.page_range %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {%endfor%}
+        {%if page_posts.has_next%}
+        <li><a href=" ?page={{page_posts.next_page_numver}}">다음</a></li>
+        {%endif%}
+    </ul>
+
+
+    <br>
+    <h2>
+        <a href="{% url 'new' %}">new </a></h2>
+
+
+</body>
+{% endblock %}
+
+</html>
